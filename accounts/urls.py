@@ -1,0 +1,40 @@
+'''
+To create a reoute.url : we need the path import 
+'''
+from django.urls import path
+'''
+django auth view : to give access to configured authentication operations in django
+'''
+from django.contrib.auth import views as auth_views
+'''
+import the custom views functionalities
+'''
+from . import views
+## Give a label to the routes : 'accounts:login'
+app_name = 'accounts'
+## Register the urls paths by mapping to appropriate
+## View method
+
+urlpatterns = [
+    path('register/', views.register_view, name='register'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('profile/', views.profile_view, name='profile'),
+
+    ## Path followed on request for reset process
+    path('password-reset/', views.CustomPasswordResetView.as_view(), name='password_reset'),
+
+    ## django inbuilt path to check if the user exists and whether email can be changed
+    path('password-reset/done/', auth_views.PasswordChangeDoneView.as_view
+    (template_name='accounts/password_reset_done.html'), name='password_reset'),
+
+    ## This is the path that confirms the password has successfully been changed
+    path('password-reset-confirm/<uidb64>/<token>/', 
+    views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+
+    ## Path to indicate the completion of reset process
+    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view
+    (template_name='accounts/password_reset_complete.html'), name='password_reset_complete'),
+
+    
+    ]
