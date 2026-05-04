@@ -14,3 +14,12 @@ c. Get the repository url on creation
 6. Push using token via this command :: git push origin master  -  **Where master is referencing 
 the default branch where work will be saved
 
+### To update project repo
+- git add .
+- git commit -m "commit message here"
+- git push -u origin master/main
+
+## To remove items already pushed before -gitignore
+- git rm --cached .env
+- git commit -m "add"
+- git push origin master/main
